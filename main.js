@@ -22,10 +22,6 @@
   $$('a', menu).forEach(a => a.addEventListener('click', () => setMenu(false)));
   addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) setMenu(false); });
 
-  /* ---------- 4. HUD: cursor position ---------- */
-  const xEl = $('[data-x]'), yEl = $('[data-y]');
-  addEventListener('pointermove', e => { xEl.textContent = pad(e.clientX, 4); yEl.textContent = pad(e.clientY, 4); }, { passive: true });
-
   /* ---------- 5. intro: words light up as you read; the reel plays only when seen ---------- */
   const big = $('[data-words]');
   if (big) {
@@ -107,8 +103,7 @@
     if (e.isIntersecting && RM.matches) drawWarp(0);
   }).observe(warp);
 
-  /* ---------- 8. scroll-linked frame: timecode, aperture, parallax, words, warp phases ---------- */
-  const tcEl = $('[data-tc]'), ap = $('[data-aperture]');
+  /* ---------- 8. scroll-linked frame: parallax, words, warp phases ---------- */
   const cards = $$('.card');
   const navLinks = $$('.nav a');
   const secs = navLinks.map(a => $(a.getAttribute('href')));
@@ -116,11 +111,6 @@
   function frame() {
     ticking = false;
     const y = scrollY, vh = innerHeight;
-    const max = Math.max(1, document.documentElement.scrollHeight - vh);
-    // timecode of a 90 s comp at 24 fps
-    const sec = (y / max) * 90;
-    tcEl.textContent = `00:${pad(sec / 60)}:${pad(sec % 60)}:${pad((sec % 1) * 24)}`;
-    ap.style.setProperty('--ap', `${(y * .18) % 360}deg`);
     // velocity feeds the warp
     boost = Math.min(1.4, boost + Math.abs(y - lastY) / vh * .9);
     lastY = y;
