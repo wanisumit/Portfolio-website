@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sumit Wani · Motion Designer</title>
+<meta name="description" content="Sumit Wani is a motion designer making brands and products move with meaning: launch films, UI motion, titles and explainers.">
+<meta name="theme-color" content="#0c0e0e">
+<meta property="og:title" content="Sumit Wani · Motion Designer">
+<meta property="og:description" content="Launch films, UI motion, titles and explainers that make ideas move with meaning.">
+<meta property="og:image" content="assets/og.jpg">
+<script>
+  document.documentElement.classList.add('js');
+</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/sora.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/dm-mono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.min.js" } }</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="mark" viewBox="0 0 256 256">
+      <path style="fill: var(--mk-up, #27E68D)" d="M216 27.5H103.48C93.1765 27.5006 83.1046 30.5563 74.5376 36.2807C65.9707 42.005 59.2934 50.141 55.35 59.66C52.5806 66.3451 51.5026 73.61 52.2116 80.8112C52.9206 88.0124 55.3947 94.9276 59.4147 100.944C63.4347 106.961 68.8765 111.893 75.258 115.304C81.6396 118.715 88.764 120.5 96 120.5H190.73C194.973 120.5 199.043 118.814 202.044 115.814C205.044 112.813 206.73 108.743 206.73 104.5C206.73 100.257 205.044 96.1869 202.044 93.1863C199.043 90.1857 194.973 88.5 190.73 88.5H96C94.0266 88.5004 92.0835 88.0141 90.3429 87.0842C88.6023 86.1543 87.1179 84.8095 86.0212 83.1689C84.9245 81.5283 84.2493 79.6425 84.0555 77.6786C83.8617 75.7147 84.1552 73.7334 84.91 71.91C86.431 68.2368 89.0072 65.0972 92.3126 62.8883C95.6181 60.6793 99.5044 59.5002 103.48 59.5H216C220.243 59.5 224.313 57.8143 227.314 54.8137C230.314 51.8131 232 47.7435 232 43.5C232 39.2565 230.314 35.1869 227.314 32.1863C224.313 29.1857 220.243 27.5 216 27.5Z"/>
+      <path style="fill: var(--mk-lo, #0F4C5C)" d="M40 228.5H152.52C162.823 228.499 172.895 225.444 181.462 219.719C190.029 213.995 196.707 205.859 200.65 196.34C203.419 189.655 204.497 182.39 203.788 175.189C203.079 167.988 200.605 161.072 196.585 155.056C192.565 149.039 187.124 144.107 180.742 140.696C174.36 137.285 167.236 135.5 160 135.5H65.27C61.0265 135.5 56.9569 137.186 53.9563 140.186C50.9557 143.187 49.27 147.257 49.27 151.5C49.27 155.743 50.9557 159.813 53.9563 162.814C56.9569 165.814 61.0265 167.5 65.27 167.5H160C161.973 167.5 163.916 167.986 165.657 168.916C167.398 169.846 168.882 171.19 169.979 172.831C171.076 174.472 171.751 176.357 171.945 178.321C172.138 180.285 171.845 182.267 171.09 184.09C169.569 187.763 166.993 190.903 163.687 193.112C160.382 195.321 156.496 196.5 152.52 196.5H40C35.7565 196.5 31.6869 198.186 28.6863 201.186C25.6857 204.187 24 208.257 24 212.5C24 216.743 25.6857 220.813 28.6863 223.814C31.6869 226.814 35.7565 228.5 40 228.5Z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- the 3D mark (mark3d.js) -->
+<canvas class="gl" aria-hidden="true"></canvas>
+
+<!-- viewfinder HUD -->
+<header class="hud hud-top">
+  <a class="brand" href="#top" aria-label="Sumit Wani, back to top">
+    <svg class="brand-mark" aria-hidden="true"><use href="#mark"/></svg>
+    <span>SUMIT WANI</span>
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a href="#work">WORK</a>
+    <a href="#reel">REEL</a>
+    <a href="#contact">CONTACT</a>
+  </nav>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu"><span class="sr">Menu</span><i></i><i></i></button>
+</header>
+<div class="menu" id="menu" hidden>
+  <a href="#work">Work</a>
+  <a href="#reel">Reel</a>
+  <a href="#contact">Contact</a>
+</div>
+
+<div class="hud hud-bottom" aria-hidden="true">
+  <span class="tc"><span class="rec"></span>TC <span data-tc>00:00:00:00</span> · 24 FPS</span>
+  <span class="xy"><span data-x>0720</span> X <span data-y>0450</span> Y</span>
+  <svg class="aperture" viewBox="0 0 40 40" data-aperture>
+    <circle cx="20" cy="20" r="18.5"/>
+    <g class="blades"><path d="M20 1.5 26 15"/><path d="M36.1 11 25.4 21.6"/><path d="M36 29.2 21 27.8"/><path d="M20 38.5 14 25"/><path d="M3.9 29 14.6 18.4"/><path d="M4 10.8 19 12.2"/></g>
+  </svg>
+</div>
+
+<main id="main">
+
+  <!-- 01 hero -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="sky" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <svg class="mark-fallback" aria-hidden="true"><use href="#mark"/></svg>
+    <div class="hero-row">
+      <p class="lead-a">Motion &amp;<br>Design</p>
+      <p class="mono lead-b">Frame by frame.<br>Built with intent.</p>
+      <p class="mono lead-c">I'm Sumit Wani, a motion designer. I make brands and products move with meaning: launch films, UI motion, titles and explainers, built in After Effects, Premiere Pro, CapCut and Final Cut Pro.</p>
+    </div>
+    <h1 class="hero-title display" id="hero-title">
+      <span class="ln"><span>I make</span></span>
+      <span class="ln"><span>ideas move</span></span>
+      <span class="ln"><span>with meaning</span></span>
+    </h1>
+  </section>
+
+  <!-- 02 intro / reel -->
+  <section class="intro" id="reel" aria-labelledby="intro-title">
+    <h2 class="sr" id="intro-title">About and showreel</h2>
+    <button class="viewfinder" type="button" data-reel aria-label="Play the showreel">
+      <video muted loop playsinline preload="none" poster="assets/hero-poster.webp" data-lazy-src="assets/hero.mp4"></video>
+      <span class="vf-corner tl"></span><span class="vf-corner tr"></span><span class="vf-corner bl"></span><span class="vf-corner br"></span>
+      <span class="vf-label mono"><span class="rec"></span>REC <span data-vf-tc>00:00:00</span></span>
+      <span class="vf-meta mono">SHOWREEL 2026 · DEMO</span>
+      <span class="vf-play mono">▶ PLAY REEL</span>
+    </button>
+    <div class="intro-copy">
+      <p class="big" data-words>I turn complex products into clear, moving stories. Brand films, UI motion and launch reels for teams who need people to understand, fast.</p>
+      <p class="small">Every project starts on paper: a script, then styleframes, then motion. I care about the ease of a curve as much as the idea behind it. <span class="demo-note">Projects below are demo brands for now.</span></p>
+      <dl class="tools mono">
+        <div><dt>Edit</dt><dd>Premiere Pro, Final Cut Pro, CapCut</dd></div>
+        <div><dt>Motion</dt><dd>After Effects</dd></div>
+        <div><dt>Delivery</dt><dd>16:9, 9:16, 4:5, loops</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 03 work -->
+  <section class="work" id="work" aria-labelledby="work-title">
+    <div class="work-head">
+      <h2 class="mono" id="work-title">SELECTED WORK (08)</h2>
+      <span class="mono">2022 — 2026</span>
+    </div>
+    <ul class="scatter" role="list">
+      <li class="card c1" data-speed="-0.06"><button type="button" data-case="0">
+        <span class="card-media r-wide"><img src="assets/work/nova.webp" alt="Matte black headphones floating in coral light trails" width="1600" height="900" loading="lazy"></span>
+        <span class="chip mono">LAUNCH FILM</span>
+        <span class="card-meta mono"><span>NOVA AUDIO</span><span>2026</span></span>
+      </button></li>
+      <li class="card c2" data-speed="0.05"><button type="button" data-case="1">
+        <span class="card-media r-square"><img src="assets/work/ledgerly.webp" alt="Three phone screens floating in indigo space with cards sliding between them" width="1600" height="900" loading="lazy"></span>
+        <span class="chip mono">UI MOTION</span>
+        <span class="card-meta mono"><span>LEDGERLY</span><span>2025</span></span>
+      </button></li>
+      <li class="card c3" data-speed="-0.02"><button type="button" data-case="2">
+        <span class="card-media r-tall"><img src="assets/work/kiln.webp" alt="Espresso and cream folding into glossy ribbons" width="1600" height="900" loading="lazy"></span>
+        <span class="chip mono">BRAND SYSTEM</span>
+        <span class="card-meta mono"><span>KILN &amp; CREMA</span><span>2025</span></span>
+      </button></li>
+      <li class="card c4" data-speed="0.08"><button type="button" data-case="3">
+        <span class="card-media r-wide"><img src="assets/work/bounce.webp" alt="Bright magenta, yellow and blue shapes bouncing and stacking" width="1600" height="900" loading="lazy"></span>
+        <span class="chip mono">TITLES</span>
+        <span class="card-meta mono"><span>BOUNCE FEST</span><span>2024</span></span>
+      </button></li>
+      <li class="card c5" data-speed="-0.05"><button type="button" data-case="4">
+        <span class="card-media r-square"><img src="assets/work/verde.webp" alt="A pale green serum bottle in water with a ripple ring" width="1600" height="900" loading="lazy"></span>
+        <span class="chip mono">PRODUCT LOOP</span>
+        <span class="card-meta mono"><span>VERDE SKIN</span><span>2024</span></span>
+      </button></li>
+      <li class="card c6" data-speed="0.03"><button type="button" data-case="5">
+        <span class="card-media r-wide"><img src="assets/work/orbit.webp" alt="A clear glass ring turning in the dark, cut by a streak of blue light" width="1600" height="900" loading="lazy"></span>
+        <span class="chip mono">LOGO STING</span>
+        <span class="card-meta mono"><span>ORBIT STUDIO</span><span>2023</span></span>
+      </button></li>
+      <li class="card c7" data-speed="-0.07"><button type="button" data-case="6">
+        <span class="card-media r-tall"><img src="assets/work/stride.webp" alt="An orange running shoe mid-stride with orange speed trails" width="1600" height="900" loading="lazy"></span>
+        <span class="chip mono">SOCIAL CUTS</span>
+        <span class="card-meta mono"><span>STRIDE RUN CO</span><span>2023</span></span>
+      </button></li>
+      <li class="card c8" data-speed="0.04"><button type="button" data-case="7">
+        <span class="card-media r-wide"><img src="assets/work/halo.webp" alt="An isometric miniature lab with solar panels and wind turbines on floating tiles" width="1600" height="900" loading="lazy"></span>
+        <span class="chip mono">2.5D EXPLAINER</span>
+        <span class="card-meta mono"><span>HALO CLIMATE LAB</span><span>2022</span></span>
+      </button></li>
+    </ul>
+    <p class="mono work-note">All brands shown are demo projects. Select a card for the brief.</p>
+  </section>
+
+  <!-- 04 warp manifesto -->
+  <section class="warp" aria-labelledby="warp-title" data-warp>
+    <div class="warp-stage">
+      <div class="warp-under" aria-hidden="true"><div class="sky"><i></i><i></i><i></i><i></i><i></i></div></div>
+      <div class="warp-dark">
+        <canvas class="warp-canvas" aria-hidden="true"></canvas>
+        <div class="safe" aria-hidden="true"><i></i><i></i><i></i></div>
+        <h2 class="sr" id="warp-title">How I work</h2>
+        <p class="wl display" data-phase="0"><span>Every frame</span><span>is a decision</span></p>
+        <p class="wl display" data-phase="1"><span>Every ease</span><span>has a reason</span></p>
+        <ul class="rules" data-phase="2" role="list">
+          <li>Story first.<br>Style second.</li>
+          <li>Cut on the action.<br>Never on the pause.</li>
+          <li>Ease in like a thought.<br>Ease out like a breath.</li>
+          <li>Loop it until<br>nobody sees the seam.</li>
+        </ul>
+        <p class="wl display" data-phase="3"><span>Make it</span><span>move.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 contact -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="sky" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    <h2 class="contact-title display" id="contact-title">
+      <span class="ln l1"><span>Let's make</span></span>
+      <span class="ln l2"><span>something</span></span>
+      <span class="ln l3"><span><em>move.</em></span></span>
+    </h2>
+    <div class="contact-row">
+      <div>
+        <a class="mail mono" href="mailto:hello@sumitwani.demo">HELLO@SUMITWANI.DEMO</a>
+        <p class="mono demo-line">Demo contact details. Real ones coming soon.</p>
+      </div>
+      <ul class="social mono" role="list">
+        <li><a href="#" aria-disabled="true">INSTAGRAM</a></li>
+        <li><a href="#" aria-disabled="true">BEHANCE</a></li>
+        <li><a href="#" aria-disabled="true">VIMEO</a></li>
+        <li><a href="#" aria-disabled="true">LINKEDIN</a></li>
+      </ul>
+    </div>
+    <footer class="foot mono">
+      <span>SUMIT WANI © 2026</span>
+      <a href="#top">BACK TO TOP ↑</a>
+    </footer>
+  </section>
+</main>
+
+<dialog class="sheet" id="case" aria-labelledby="case-title">
+  <form method="dialog"><button class="close mono" aria-label="Close">CLOSE ✕</button></form>
+  <div class="case-media"><img alt="" width="1600" height="900" loading="lazy"></div>
+  <div class="case-body">
+    <p class="mono case-top"><span class="case-brand"></span> · <span class="case-tc"></span> · DEMO</p>
+    <h3 class="display" id="case-title"></h3>
+    <p class="case-brief"></p>
+    <dl class="mono case-dl">
+      <div><dt>ROLE</dt><dd class="case-role"></dd></div>
+      <div><dt>DELIVERED</dt><dd class="case-del"></dd></div>
+      <div><dt>TOOLS</dt><dd class="case-tools"></dd></div>
+    </dl>
+  </div>
+</dialog>
+
+<dialog class="sheet reel-sheet" id="reel-dlg" aria-label="Showreel">
+  <form method="dialog"><button class="close mono" aria-label="Close">CLOSE ✕</button></form>
+  <video controls playsinline preload="none" poster="assets/hero-poster.webp" src="assets/hero.mp4"></video>
+  <p class="mono reel-cap">Showreel placeholder: the site's hero film. Replace with the real reel.</p>
+</dialog>
+
+<script src="main.js" defer></script>
+<script type="module" src="mark3d.js"></script>
+</body>
+</html>
