@@ -199,7 +199,7 @@ main { position: relative; }
 .social { grid-column: 2 / 5; display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px clamp(20px, 2.6vw, 40px); }
 .social a { text-decoration: none; min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; gap: 9px; }
 .ico { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.social .ico { stroke: var(--mint); } /* contact-section icons mint too; names stay white */
+.social a:hover .ico { stroke: var(--mint); }
 .social a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .foot { position: relative; z-index: 4; display: flex; justify-content: space-between; align-items: center; padding: 0 14px 48px; margin-top: clamp(40px, 6vh, 72px); } /* fixed gap: spare height goes above the headline, not here */
 .foot a { text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
