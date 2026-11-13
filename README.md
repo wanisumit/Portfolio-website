@@ -5,7 +5,6 @@ Motion designer portfolio, version 3 ("Viewfinder"). A static site: plain HTML, 
 - Dark only, on Neutral 950 (#0C0E0E), following the Sumit Wani brand guideline.
 - Type: Sora 600 (display), DM Sans (body), DM Mono 500 (labels), self-hosted in `assets/fonts`.
 - The hero logo is a live 3D model of the Sumit Wani mark (mint #27E68D over Deep Teal #0F4C5C), built with three.js (`vendor/`, MIT licence).
-- A camera-style readout shows a scroll timecode, cursor X/Y and an aperture icon.
 - The work section shows 8 demo projects. Contact details are placeholders.
 
 ## Run locally

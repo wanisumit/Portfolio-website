@@ -84,17 +84,24 @@ if (renderer) {
     const vh = innerHeight;
     const hr = hero.getBoundingClientRect(), cr = contact.getBoundingClientRect();
     const a = clamp(hr.bottom / vh);                 // 1 at top of page, 0 once the hero has left
-    const c = clamp((vh - cr.top) / (vh * .9));      // 0 until the contact screen arrives
+    // 0 until the contact screen arrives, 1 (fully in) once its top is ~45% up the screen,
+    // so the logo is already there by the time its empty space above the headline is in view
+    const c = clamp((vh - cr.top) / (vh * .55));
     const viewH = 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
     const viewW = viewH * camera.aspect;
     const phone = W < 620;
     let s, x, y, spin, o;
-    if (c > 0 && c >= (1 - a)) {
+    if (c > 0 && c >= a) {                           // contact takes over as soon as it is more "in" than the hero
       const k = smooth(c, 0, 1);
-      // right-hand column again, above the social row, clear of the headline
+      // desktop: right-hand column, clear of the headline. phone: centred above the headline
       s = (phone ? Math.min(viewH * .16, viewW * .26) : Math.min(viewH * .3, viewW * .14)) * (.7 + .3 * k);
-      x = phone ? viewW * .22 : viewW * .3; y = phone ? viewH * .3 : viewH * .1;
-      spin = (1 - k) * -1.6; o = k;
+      x = phone ? 0 : viewW * .3;
+      // pinned to the contact section (not the screen), so it scrolls in with it and never floats over the work tiles.
+      // once the section reaches the top it sits 17% (phone) / 40% (desktop) down the screen, above the headline
+      const screenY = cr.top + vh * (phone ? .17 : .4);
+      y = (.5 - screenY / vh) * viewH;
+      spin = (1 - k) * -1.6;
+      o = 0;   // the contact screen now shows the WhatsApp QR card instead of the 3D mark
     } else {
       const k = 1 - a;                               // 0 → 1 as the hero scrolls away
       // desktop and tablet: the mark sits in the right-hand column, clear of the intro copy above and the headline at left
