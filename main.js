@@ -64,7 +64,8 @@
 
   /* ---------- 8. case sheets (demo content) ---------- */
   const CASES = [
-    { brand: 'NOVA Audio', tc: '00:42', title: 'Pulse launch film', img: 'assets/work/nova.webp',
+    // yt: a YouTube video ID (the part after "watch?v="). When set, the tile shows a play button and the sheet plays the video.
+    { brand: 'NOVA Audio', tc: '00:42', title: 'Pulse launch film', img: 'assets/work/nova.webp', yt: '2zbsyzQiqw4',
       brief: 'A launch film for a pair of over-ear headphones. The product never changes shape; the light around it carries the rhythm of the track.',
       role: 'Direction, 3D animation, edit', del: '42s hero film, 3 cutdowns', tools: 'After Effects, Premiere Pro' },
     { brand: 'Ledgerly', tc: '00:30', title: 'App in motion', img: 'assets/work/ledgerly.webp',
@@ -90,17 +91,58 @@
       role: 'Illustration, 2.5D animation', del: '90s explainer, 5 social clips', tools: 'After Effects, Final Cut Pro' }
   ];
   const dlg = $('#case');
+  // tiles with a YouTube video get a play button
+  $$('[data-case]').forEach(btn => {
+    const c = CASES[Number(btn.dataset.case)];
+    if (c && c.yt) {
+      btn.classList.add('has-video');
+      $('.card-media', btn).insertAdjacentHTML('beforeend', '<span class="card-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></span>');
+      btn.setAttribute('aria-label', `Play ${c.brand} video: ${c.title}`);
+    }
+  });
+  // video tiles play right where they are: the YouTube player replaces the image at the same size and place.
+  // Only one tile plays at a time; the ✕ (or starting another video) puts the image back.
+  const stopTile = () => {
+    const p = $('.card-player'); if (!p) return;
+    p.closest('.card').classList.remove('is-playing'); p.remove();
+  };
+  const playInTile = (btn, c) => {
+    stopTile(); stopReel();
+    const card = btn.closest('.card');
+    const p = document.createElement('div');
+    p.className = 'card-player';
+    p.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(c.yt)}?autoplay=1&rel=0&modestbranding=1&playsinline=1"
+      title="${c.brand}: ${c.title}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      <button class="card-stop mono" type="button" aria-label="Stop video">✕</button>`;
+    $('.card-stop', p).addEventListener('click', () => { stopTile(); btn.focus(); });
+    card.appendChild(p); card.classList.add('is-playing');
+  };
   $$('[data-case]').forEach(btn => btn.addEventListener('click', () => {
     const c = CASES[Number(btn.dataset.case)];
+    if (c.yt) { playInTile(btn, c); return; }   // privacy-enhanced YouTube embed: no YouTube cookies until it plays
     const img = $('.case-media img', dlg); img.src = c.img; img.alt = $('img', btn).alt;
     $('.case-brand', dlg).textContent = c.brand.toUpperCase(); $('.case-tc', dlg).textContent = c.tc;
     $('#case-title').textContent = c.title; $('.case-brief', dlg).textContent = c.brief;
     $('.case-role', dlg).textContent = c.role; $('.case-del', dlg).textContent = c.del; $('.case-tools', dlg).textContent = c.tools;
     dlg.showModal();
   }));
-  const reelDlg = $('#reel-dlg'), reelVid = $('video', reelDlg);
-  $('[data-reel]').addEventListener('click', () => { reelDlg.showModal(); reelVid.play().catch(() => {}); });
-  reelDlg.addEventListener('close', () => reelVid.pause());
-  [dlg, reelDlg].forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+  // the showreel also plays in place: a full player (sound + controls) takes the preview's exact spot and size
+  const reelBtn = $('[data-reel]');
+  function stopReel() {
+    const p = $('.vf-player'); if (!p) return;
+    $('video', p).pause(); p.remove(); reelBtn.hidden = false;
+  }
+  reelBtn.addEventListener('click', () => {
+    stopTile(); stopReel();
+    const p = document.createElement('div');
+    p.className = 'viewfinder vf-player';
+    p.innerHTML = `<video controls playsinline preload="auto" poster="assets/hero-poster.webp" src="assets/hero.mp4" aria-label="Showreel"></video>
+      <button class="card-stop mono" type="button" aria-label="Stop showreel">✕</button>`;
+    $('.card-stop', p).addEventListener('click', () => { stopReel(); reelBtn.focus(); });
+    reelBtn.before(p); reelBtn.hidden = true;
+    $('video', p).play().catch(() => {});
+  });
+  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
   $$('[aria-disabled="true"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
 })();

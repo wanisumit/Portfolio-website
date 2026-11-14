@@ -129,6 +129,10 @@ main { position: relative; }
 .vf-meta { position: absolute; left: 16px; bottom: 12px; color: #fff; font-size: 11.5px; text-shadow: 0 1px 6px rgb(0 0 0 / .6); }
 .vf-play { position: absolute; right: 16px; bottom: 9px; background: var(--mint); color: #0c0e0e; padding: 4px 8px; font-size: 11.5px; transform: translateY(6px); opacity: 0; transition: .3s var(--ease); }
 .viewfinder:hover .vf-play, .viewfinder:focus-visible .vf-play { transform: none; opacity: 1; }
+.viewfinder[hidden] { display: none; }
+/* showreel playing in place: same box as the preview, whole frame visible, native controls */
+.vf-player { background: #000; }
+.vf-player video, .vf-player:hover video { transform: none; object-fit: contain; }
 .intro-copy { grid-column: 3 / 5; padding: 0 14px 0 calc(14px + 2vw); }
 .big { font: 500 clamp(26px, 3.2vw, 50px)/1.12 var(--body); letter-spacing: -.025em; max-width: 24ch; }
 .big .w { color: var(--soft); transition: color .35s linear; }
@@ -160,16 +164,16 @@ main { position: relative; }
 .c7 { grid-area: 5 / 1; }
 .c8 { grid-area: 5 / 2; }
 .card { position: relative; min-width: 0; }
-.card button { display: block; position: relative; width: 100%; height: 100%; text-align: left; }
+.card > button { display: block; position: relative; width: 100%; height: 100%; text-align: left; }
 .card-media { display: block; position: relative; overflow: hidden; background: var(--card); height: 100%; }
 .card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .9s var(--ease), filter .5s var(--ease); }
-.card button:hover .card-media img, .card button:focus-visible .card-media img { transform: scale(1.06); }
+.card > button:hover .card-media img, .card > button:focus-visible .card-media img { transform: scale(1.06); }
 .chip { position: absolute; top: 0; right: 0; z-index: 1; background: var(--mint); color: #0c0e0e; font-size: 10.5px; line-height: 1; padding: 5px 7px 4px; }
 /* name and year sit on the image (bottom fade), so the gaps between tiles stay equal */
 .card-meta { position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; display: flex; justify-content: space-between; gap: 12px; padding: 32px 12px 10px; font-size: 11.5px; color: #fff; background: linear-gradient(to top, rgb(0 0 0 / .72), rgb(0 0 0 / 0)); pointer-events: none; }
 .card-meta span + span { color: rgb(255 255 255 / .7); }
-.card button::after { content: ""; position: absolute; left: -6px; top: -6px; width: 9px; height: 9px; background: var(--mint); opacity: 0; transition: opacity .25s; }
-.card button:hover::after { opacity: 1; }
+.card > button::after { content: ""; position: absolute; left: -6px; top: -6px; width: 9px; height: 9px; background: var(--mint); opacity: 0; transition: opacity .25s; }
+.card > button:hover::after { opacity: 1; }
 
 
 /* ---------- contact ---------- */
@@ -214,6 +218,17 @@ html:not(.js) .contact .ln > span { transform: none; }
 .sheet::backdrop { background: rgb(4 8 8 / .72); backdrop-filter: blur(6px); }
 .close { position: sticky; top: 0; float: right; z-index: 2; margin: 10px; min-height: 44px; padding: 0 14px; background: var(--mint); color: #0c0e0e; }
 .case-media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+/* inline YouTube player: covers the tile exactly, same size and place as the image */
+.card-player { position: absolute; inset: 0; z-index: 3; background: #000; }
+.card-player iframe { display: block; width: 100%; height: 100%; border: 0; }
+.card-stop { position: absolute; top: 8px; right: 8px; z-index: 1; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: rgb(12 14 14 / .7); border: 1px solid rgb(255 255 255 / .3); color: #fff; font-size: 14px; letter-spacing: 0; }
+.card-stop:hover, .card-stop:focus-visible { background: var(--mint); color: #0c0e0e; }
+.card.is-playing .card-play, .card.is-playing .chip { visibility: hidden; }
+/* play button on tiles that have a video */
+.card-play { position: absolute; left: 50%; top: 50%; z-index: 1; width: clamp(48px, 5vw, 68px); aspect-ratio: 1; translate: -50% -50%; display: grid; place-items: center; border-radius: 50%; background: rgb(12 14 14 / .55); border: 1px solid rgb(255 255 255 / .35); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background-color .3s var(--ease), scale .3s var(--ease); pointer-events: none; }
+.card-play svg { width: 42%; fill: #fff; margin-left: 8%; }
+.card > button:hover .card-play, .card > button:focus-visible .card-play { background: var(--mint); scale: 1.08; }
+.card > button:hover .card-play svg, .card > button:focus-visible .card-play svg { fill: #0c0e0e; }
 .case-body { padding: 28px clamp(20px, 4vw, 44px) 40px; display: grid; gap: 18px; }
 .case-top { color: var(--soft); }
 .case-body h3 { font-size: clamp(32px, 4.4vw, 64px); }
